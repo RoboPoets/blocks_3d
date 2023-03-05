@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://bws5yk7higmsu"]
+
+[ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_em7xt"]
+
+[node name="BlockDinnerTable" type="CSGCombiner3D"]
+material_override = ExtResource("1_em7xt")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+size = Vector3(1.8, 0.03, 1.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.775, 0)
+size = Vector3(1.7, 0.03, 1.1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77, 0)
+operation = 2
+size = Vector3(1.65, 0.04, 1.05)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, 0.55)
+radius = 0.02
+height = 0.8
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, 0.55)
+radius = 0.02
+height = 0.8
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, -0.55)
+radius = 0.02
+height = 0.8
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, -0.55)
+radius = 0.02
+height = 0.8

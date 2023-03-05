@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://d232kujuaqhdv"]
+
+[ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_yrck0"]
+
+[node name="BlockWall" type="CSGCombiner3D"]
+material_override = ExtResource("1_yrck0")
+use_collision = true
+
+[node name="wall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+use_collision = true
+size = Vector3(4, 3, 0.2)

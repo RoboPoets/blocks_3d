@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://djb1h3kkce45o"]
+
+[ext_resource type="PackedScene" uid="uid://dujs24a3os2xs" path="res://addons/blocks_3d/props/decoration/statue.glb" id="1_sfy58"]
+
+[node name="BlockDecoStatue" instance=ExtResource("1_sfy58")]

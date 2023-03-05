@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://de7s82nxm1lm2"]
+
+[ext_resource type="PackedScene" uid="uid://8i1b6kkuwj8b" path="res://addons/blocks_3d/props/decoration/statue_broken.glb" id="1_6evty"]
+[ext_resource type="Material" uid="uid://bhn0ttfn5tfre" path="res://addons/blocks_3d/materials/grid_grey.tres" id="2_yqm02"]
+
+[node name="BlockDecoStatueBroken" instance=ExtResource("1_6evty")]
+
+[node name="statue broken" parent="." index="0"]
+instance_shader_parameters/instance_albedo_color = Color(1, 1, 1, 1)
+surface_material_override/0 = ExtResource("2_yqm02")

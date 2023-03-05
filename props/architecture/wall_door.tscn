@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://chrm62nt4ns2i"]
+
+[ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_vmgvw"]
+
+[node name="BlockWallDoor" type="CSGCombiner3D"]
+material_override = ExtResource("1_vmgvw")
+instance_shader_parameters/instance_albedo_color = Color(1, 1, 1, 1)
+use_collision = true
+
+[node name="wall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+size = Vector3(4, 3, 0.2)
+
+[node name="door" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+operation = 2
+size = Vector3(1.2, 2.2, 0.4)
