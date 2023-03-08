@@ -5,19 +5,10 @@ const Types = preload("res://addons/blocks_3d/scripts/types.gd")
 
 
 func _ready():
-	set_process_unhandled_input(false)
-	set_process(false)
-
-	if Engine.is_editor_hint():
-		print("Running in editor, nothing to do")
-		set_process(true)
-		return
-
 	if not OS.has_feature("editor"):
 		queue_free()
 		return
 
-	set_process_unhandled_input(true)
 	var root:Window = get_tree().get_root()
 
 	# Spawn default player character and camera
@@ -26,9 +17,10 @@ func _ready():
 
 		var cam:Node3D = create_default_camera()
 		var player:CharacterBody3D = create_default_character()
+		var pos:Vector3 = get_starting_position()
 
 		if player:
-			player.set_position(Vector3(0, 10, 0))
+			player.set_position(pos)
 			root.call_deferred("add_child", player)
 
 		if cam:
@@ -36,7 +28,7 @@ func _ready():
 				if cam.has_method("set_target"):
 					cam.set_target(player)
 			else:
-				cam.set_position(Vector3(0, 10, 0))
+				cam.set_position(pos)
 			root.call_deferred("add_child", cam)
 
 	# Spawn default directional light
@@ -51,6 +43,30 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel"):
 		get_tree().quit()
+
+
+func get_starting_position() -> Vector3:
+	var path = ProjectSettings.globalize_path("res://") + ".godot/editor"
+	var file_name:String
+	if DirAccess.dir_exists_absolute(path):
+		var files:PackedStringArray = DirAccess.get_files_at(path)
+		for f in files:
+			if f.contains("city.tscn-editstate-"):
+				file_name = f
+				break
+		prints(len(files), file_name)
+
+	var viewports:Array
+	if file_name:
+		var cfg = ConfigFile.new()
+		var err = cfg.load(path.path_join(file_name))
+		if err == OK and cfg.has_section_key("editor_states", "3D"):
+			viewports = cfg.get_value("editor_states", "3D").get("viewports", Array())
+
+	if len(viewports) > 0:
+		return viewports[0].get("position", Vector3.ZERO)
+
+	return Vector3.ZERO
 
 
 func create_default_camera() -> Node3D:
