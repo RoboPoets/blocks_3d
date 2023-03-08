@@ -9,7 +9,6 @@ func _enter_tree():
 	add_custom_project_setting(Types.settings_key_character, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
 	add_custom_project_setting(Types.settings_key_camera, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
 	add_custom_project_setting(Types.settings_key_sun, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
-	add_custom_project_setting(Types.settings_key_env, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tres,*.res")
 	add_autoload_singleton("PlayerSpawner", "res://addons/blocks_3d/scripts/player_spawner.gd")
 
 
@@ -17,7 +16,6 @@ func _exit_tree():
 	ProjectSettings.set_setting(Types.settings_key_character, null)
 	ProjectSettings.set_setting(Types.settings_key_camera, null)
 	ProjectSettings.set_setting(Types.settings_key_sun, null)
-	ProjectSettings.set_setting(Types.settings_key_env, null)
 	remove_autoload_singleton("PlayerSpawner")
 
 
