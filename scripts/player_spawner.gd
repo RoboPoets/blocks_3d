@@ -1,10 +1,25 @@
 extends Node
+## PlayerSpawner spawns nodes for playtesting when a level is run from the
+## editor.
+##
+## When it detects that the level does not contain a camera, a player character,
+## or a directional light, it tries to spawn them by creating the respective
+## scenes defined in the project settings (see Project Settings -> Plugins ->
+## Blocks 3D). Additionally, the player character and camera are spawned at
+## the level's current editor camera position. This makes it very convenient
+## for testing larger maps.
+##
+## [b]Waring:[/b] This class is not supposed to be used in exported games. It
+## will not work in exported games and should not be relied upon. It can be
+## exported safely along with the other game files, but it will destroy itself
+## immediately if it detects that it is running in an exported build.
 
 
 const Types = preload("res://addons/blocks_3d/scripts/types.gd")
 
 
 func _ready():
+	## Abort if in exported game
 	if not OS.has_feature("editor"):
 		queue_free()
 		return
@@ -40,11 +55,18 @@ func _ready():
 			root.call_deferred("add_child", sun)
 
 
+## Quit the game if the [code]ui_cancel[/code] key is pressed. This defaults
+## to the [kbd]Escape[/kbd] key on most operating systems. This operation can
+## interfere with your UI if you don't call [method Viewport.set_input_as_handled]
+## in your input-handling classes.
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel"):
 		get_tree().quit()
 
 
+## Return the editor camera's location in the current scene. This reads from
+## the first viewport only and ignores the other three viewports, whether
+## they are visible or not.
 func get_starting_position() -> Vector3:
 	var path = ProjectSettings.globalize_path("res://") + ".godot/editor"
 	var file_name:String
@@ -69,6 +91,7 @@ func get_starting_position() -> Vector3:
 	return Vector3.ZERO
 
 
+## Create the playtest camera from the scene file set in the project settings.
 func create_default_camera() -> Node3D:
 	var camera_file:String = ProjectSettings.get_setting(Types.settings_key_camera, "")
 	if camera_file:
@@ -79,6 +102,7 @@ func create_default_camera() -> Node3D:
 	return null
 
 
+## Create the playtest character from the scene file set in the project settings.
 func create_default_character() -> CharacterBody3D:
 	var player_file:String = ProjectSettings.get_setting(Types.settings_key_character, "")
 	if player_file:
@@ -89,6 +113,7 @@ func create_default_character() -> CharacterBody3D:
 	return null
 
 
+## Create the playtest sunlight from the scene file set in the project settings.
 func create_default_directional_light() -> Node3D:
 	var sun_file:String = ProjectSettings.get_setting(Types.settings_key_sun, "")
 	if sun_file:

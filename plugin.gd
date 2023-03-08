@@ -1,5 +1,7 @@
 @tool
 extends EditorPlugin
+## This plugin provides assets and scripts to help getting started with
+## blocking out 3D levels and improve iteration times.
 
 
 const Types = preload("res://addons/blocks_3d/scripts/types.gd")
