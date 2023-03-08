@@ -32,7 +32,7 @@ _subresources={
 "materials": {
 "Material": {
 "use_external/enabled": true,
-"use_external/path": "res://addons/blocks_3d/materials/grid.tres"
+"use_external/path": "res://addons/blocks_3d/materials/grid_white.tres"
 }
 }
 }
