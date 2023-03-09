@@ -27,7 +27,8 @@ func _ready():
 	var root:Window = get_tree().get_root()
 
 	# Spawn default player character and camera
-	if not get_tree().has_group("Player"): # TODO turn group name into setting
+	var player_group:String = ProjectSettings.get_setting(Types.settings_key_node_group, "")
+	if not player_group.is_empty() and not get_tree().has_group(player_group):
 		print("No player character found, trying to spawn default character...")
 
 		var cam:Node3D = create_default_camera()
@@ -77,7 +78,6 @@ func get_starting_position() -> Vector3:
 			if f.contains(scene_file + "-editstate-"):
 				file_name = f
 				break
-		prints(len(files), file_name)
 
 	var viewports:Array
 	if file_name:
