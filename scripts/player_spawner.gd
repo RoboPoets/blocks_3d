@@ -68,12 +68,13 @@ func _unhandled_input(event):
 ## the first viewport only and ignores the other three viewports, whether
 ## they are visible or not.
 func get_starting_position() -> Vector3:
-	var path = ProjectSettings.globalize_path("res://") + ".godot/editor"
+	var scene_file:String = get_tree().current_scene.scene_file_path.get_file()
+	var data_path = ProjectSettings.globalize_path("res://") + ".godot/editor"
 	var file_name:String
-	if DirAccess.dir_exists_absolute(path):
-		var files:PackedStringArray = DirAccess.get_files_at(path)
+	if DirAccess.dir_exists_absolute(data_path):
+		var files:PackedStringArray = DirAccess.get_files_at(data_path)
 		for f in files:
-			if f.contains("city.tscn-editstate-"):
+			if f.contains(scene_file + "-editstate-"):
 				file_name = f
 				break
 		prints(len(files), file_name)
@@ -81,7 +82,7 @@ func get_starting_position() -> Vector3:
 	var viewports:Array
 	if file_name:
 		var cfg = ConfigFile.new()
-		var err = cfg.load(path.path_join(file_name))
+		var err = cfg.load(data_path.path_join(file_name))
 		if err == OK and cfg.has_section_key("editor_states", "3D"):
 			viewports = cfg.get_value("editor_states", "3D").get("viewports", Array())
 
