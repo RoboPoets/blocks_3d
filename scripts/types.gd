@@ -18,3 +18,32 @@ const settings_key_sun:String = "plugins/blocks_3d/default_sun"
 ## character is a member of. This is used by the player spawner to determine
 ## whether a player character is already present in the scene.
 const settings_key_node_group:String = "plugins/blocks_3d/default_character_node_group"
+
+
+class PluginSettings:
+	static func register_settings():
+		add_custom_project_setting(settings_key_character, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
+		add_custom_project_setting(settings_key_camera, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
+		add_custom_project_setting(settings_key_sun, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
+		add_custom_project_setting(settings_key_node_group, TYPE_STRING, "Player")
+
+
+	static func unregister_settings():
+		ProjectSettings.set_setting(settings_key_character, null)
+		ProjectSettings.set_setting(settings_key_camera, null)
+		ProjectSettings.set_setting(settings_key_sun, null)
+		ProjectSettings.set_setting(settings_key_node_group, null)
+
+
+	static func add_custom_project_setting(name: String, type:int, default, hint:int = PROPERTY_HINT_NONE, hint_string:String = ""):
+		if not ProjectSettings.has_setting(name):
+			var info:Dictionary = {
+				"name": name,
+				"type": type,
+				"hint": hint,
+				"hint_string": hint_string,
+			}
+
+			ProjectSettings.set_setting(name, default)
+			ProjectSettings.add_property_info(info)
+			ProjectSettings.set_initial_value(name, default)

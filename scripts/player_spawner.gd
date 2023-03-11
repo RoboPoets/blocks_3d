@@ -18,6 +18,10 @@ extends Node
 const Types = preload("res://addons/blocks_3d/scripts/types.gd")
 
 
+func _enter_tree():
+	Types.PluginSettings.register_settings()
+
+
 func _ready():
 	## Abort if in exported game
 	if not OS.has_feature("editor"):
