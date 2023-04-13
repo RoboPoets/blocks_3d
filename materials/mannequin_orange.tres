@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cede8mcq606y8"]
+
+[ext_resource type="Shader" path="res://addons/blocks_3d/shaders/mannequin.gdshader" id="1_48hfx"]
+[ext_resource type="Texture2D" uid="uid://dfcub7226s6kl" path="res://addons/blocks_3d/textures/mannequin_clean_d.webp" id="2_eln6s"]
+[ext_resource type="Texture2D" uid="uid://c51ntm0ldumrp" path="res://addons/blocks_3d/textures/mannequin_logo_mask.webp" id="3_gbw7f"]
+[ext_resource type="Texture2D" uid="uid://dk1lr5tln1hc6" path="res://addons/blocks_3d/textures/mannequin_clean_n.webp" id="4_ypy0n"]
+[ext_resource type="Texture2D" uid="uid://qubvkuijlhlq" path="res://addons/blocks_3d/textures/mannequin_clean_orm.webp" id="5_f23os"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_48hfx")
+shader_parameter/highlight_color = Color(0.85098, 0.509804, 0.219608, 1)
+shader_parameter/color_anim_speed = 0.1
+shader_parameter/albedo_texture = ExtResource("2_eln6s")
+shader_parameter/normal_texture = ExtResource("4_ypy0n")
+shader_parameter/orm_texture = ExtResource("5_f23os")
+shader_parameter/logo_texture = ExtResource("3_gbw7f")

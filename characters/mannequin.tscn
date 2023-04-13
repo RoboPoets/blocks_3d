@@ -1,0 +1,140 @@
+[gd_scene load_steps=18 format=3 uid="uid://bpmi64v8v4i6w"]
+
+[ext_resource type="PackedScene" uid="uid://dhm4npydhgkba" path="res://addons/blocks_3d/characters/mannequin.glb" id="1_ulv4r"]
+[ext_resource type="Script" path="res://addons/blocks_3d/characters/mannequin.gd" id="2_waml3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4a8ri"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1il3i"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yn6kl"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_eah7f"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_lk3bf"]
+sync = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xa64h"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_2unkj"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2djn0"]
+graph_offset = Vector2(-534.407, 67.3545)
+nodes/Run/node = SubResource("AnimationNodeAnimation_yn6kl")
+nodes/Run/position = Vector2(-240, 260)
+nodes/RunScale/node = SubResource("AnimationNodeTimeScale_eah7f")
+nodes/RunScale/position = Vector2(-60, 260)
+nodes/Speed/node = SubResource("AnimationNodeBlend2_lk3bf")
+nodes/Speed/position = Vector2(140, 140)
+nodes/Walk/node = SubResource("AnimationNodeAnimation_xa64h")
+nodes/Walk/position = Vector2(-240, 100)
+nodes/WalkScale/node = SubResource("AnimationNodeTimeScale_2unkj")
+nodes/WalkScale/position = Vector2(-60, 100)
+nodes/output/position = Vector2(320, 140)
+node_connections = [&"output", 0, &"Speed", &"RunScale", 0, &"Run", &"Speed", 0, &"WalkScale", &"Speed", 1, &"RunScale", &"WalkScale", 0, &"Walk"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gt1qj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l33t8"]
+xfade_time = 0.5
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m6vpr"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_usfcw"]
+states/End/position = Vector2(699, 100)
+states/Start/position = Vector2(175, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_1il3i")
+states/idle/position = Vector2(343, 100)
+states/walk-run/node = SubResource("AnimationNodeBlendTree_2djn0")
+states/walk-run/position = Vector2(343, 221)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_gt1qj"), "idle", "walk-run", SubResource("AnimationNodeStateMachineTransition_l33t8"), "walk-run", "idle", SubResource("AnimationNodeStateMachineTransition_m6vpr")]
+graph_offset = Vector2(-50, 70)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1jk6l"]
+graph_offset = Vector2(-472, 55.0729)
+nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_usfcw")
+nodes/Locomotion/position = Vector2(-40, 140)
+nodes/output/position = Vector2(280, 140)
+node_connections = [&"output", 0, &"Locomotion"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_cwt1q"]
+
+[sub_resource type="GDScript" id="GDScript_t7t6r"]
+script/source = "extends AnimationTree
+
+
+var speed:float = 0.0
+
+var _walk_length:float = 1.0
+var _run_length:float = 1.0
+var _walk_speed:float = 2.5
+var _run_speed:float = 6.0
+
+
+## Initialize all the information that's necessary to properly perform
+## animation synchronization between the walk and run animations in the
+## Walk/Run blend space inside the locomotion state machine.
+func _ready():
+	var bs:AnimationNodeBlendTree = tree_root.get_node(\"Locomotion\").get_node(\"walk-run\")
+	var walk:StringName = bs.get_node(\"Walk\").animation
+	var run:StringName = bs.get_node(\"Run\").animation
+	var player:AnimationPlayer = get_node(anim_player)
+	_walk_length = player.get_animation(walk).length
+	_run_length = player.get_animation(run).length
+	active = true
+
+
+func _process(delta):
+	set(\"parameters/Locomotion/conditions/is_moving\", speed > 0.0)
+	set(\"parameters/Locomotion/conditions/is_idle\", speed == 0.0)
+	set(\"parameters/Locomotion/walk-run/Speed/blend_amount\", (speed-_walk_speed)/(_run_speed - _walk_speed))
+
+	var min:float = max(0.0, speed - _walk_speed)
+	var max:float = _run_speed - _walk_speed
+	var weight:float = min / max
+	var walk_scale:float = lerp(1.0, _walk_length / _run_length, weight)
+	var run_scale:float = lerp(_run_length / _walk_length, 1.0, weight)
+	set(\"parameters/Locomotion/walk-run/WalkScale/scale\", walk_scale)
+	set(\"parameters/Locomotion/walk-run/RunScale/scale\", run_scale)
+"
+
+[node name="Mannequin" instance=ExtResource("1_ulv4r")]
+script = ExtResource("2_waml3")
+
+[node name="Capsule" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CapsuleShape3D_4a8ri")
+
+[node name="Skeleton" parent="." index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.9, 0)
+
+[node name="Skeleton3D" parent="Skeleton" index="0"]
+bones/6/rotation = Quaternion(0.533172, 0.533173, 0.464465, -0.464464)
+bones/63/rotation = Quaternion(0.0128473, 0.0957652, 0.993993, -0.0513957)
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "rest"
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="3"]
+tree_root = SubResource("AnimationNodeBlendTree_1jk6l")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Locomotion/playback = SubResource("AnimationNodeStateMachinePlayback_cwt1q")
+parameters/Locomotion/conditions/is_idle = false
+parameters/Locomotion/conditions/is_moving = false
+parameters/Locomotion/walk-run/RunScale/scale = 1.0
+parameters/Locomotion/walk-run/Speed/blend_amount = 0
+parameters/Locomotion/walk-run/WalkScale/scale = 1.0
+script = SubResource("GDScript_t7t6r")
+
+[node name="Node3D" type="Node3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -0.355433, 0.934702, 0, -0.934702, -0.355433, 0.208386, -0.80583, -0.298562)
