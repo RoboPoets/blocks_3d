@@ -22,8 +22,8 @@ const settings_key_node_group:String = "plugins/blocks_3d/default_character_node
 
 class PluginSettings:
 	static func register_settings():
-		add_custom_project_setting(settings_key_character, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
-		add_custom_project_setting(settings_key_camera, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
+		add_custom_project_setting(settings_key_character, TYPE_STRING, "res://addons/blocks_3d/characters/mannequin.tscn", PROPERTY_HINT_FILE, "*.tscn,*.scn")
+		add_custom_project_setting(settings_key_camera, TYPE_STRING, "res://addons/blocks_3d/characters/camera.tscn", PROPERTY_HINT_FILE, "*.tscn,*.scn")
 		add_custom_project_setting(settings_key_sun, TYPE_STRING, "", PROPERTY_HINT_FILE, "*.tscn,*.scn")
 		add_custom_project_setting(settings_key_node_group, TYPE_STRING, "Player")
 

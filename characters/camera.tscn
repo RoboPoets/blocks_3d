@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b15xpaurii7wa"]
+
+[ext_resource type="Script" path="res://addons/blocks_3d/characters/camera.gd" id="1_8b2i0"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_8b2i0")
+limit_pitch_range = true
+
+[node name="CameraBoom" type="SpringArm3D" parent="."]
+spring_length = 2.5
+
+[node name="Camera" type="Camera3D" parent="CameraBoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
