@@ -122,6 +122,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.
 bones/6/rotation = Quaternion(0.533172, 0.533173, 0.464465, -0.464464)
 bones/63/rotation = Quaternion(0.0128473, 0.0957652, 0.993993, -0.0513957)
 
+[node name="Robot" parent="Skeleton/Skeleton3D" index="0"]
+layers = 1048575
+
 [node name="AnimationPlayer" parent="." index="2"]
 autoplay = "rest"
 
@@ -135,6 +138,3 @@ parameters/Locomotion/walk-run/RunScale/scale = 1.0
 parameters/Locomotion/walk-run/Speed/blend_amount = 0
 parameters/Locomotion/walk-run/WalkScale/scale = 1.0
 script = SubResource("GDScript_t7t6r")
-
-[node name="Node3D" type="Node3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, -0.355433, 0.934702, 0, -0.934702, -0.355433, 0.208386, -0.80583, -0.298562)
