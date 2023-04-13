@@ -37,13 +37,14 @@ class PluginSettings:
 
 	static func add_custom_project_setting(name: String, type:int, default, hint:int = PROPERTY_HINT_NONE, hint_string:String = ""):
 		if not ProjectSettings.has_setting(name):
-			var info:Dictionary = {
-				"name": name,
-				"type": type,
-				"hint": hint,
-				"hint_string": hint_string,
-			}
-
 			ProjectSettings.set_setting(name, default)
-			ProjectSettings.add_property_info(info)
 			ProjectSettings.set_initial_value(name, default)
+
+		var info:Dictionary = {
+			"name": name,
+			"type": type,
+			"hint": hint,
+			"hint_string": hint_string,
+		}
+
+		ProjectSettings.add_property_info(info)
