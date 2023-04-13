@@ -21,6 +21,8 @@ var current_input_vector:Vector3 = Vector3.ZERO
 
 func _ready():
 	set_process_unhandled_input(current)
+	if current:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 ## Handles character movement and rotation.
