@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8eix3fvuwe6v"]
+
+[sub_resource type="GDScript" id="GDScript_fysi7"]
+script/source = "@tool
+extends StaticBody3D
+
+
+signal text_changed
+
+
+@export_multiline var text:String = \"\" :
+	set(value):
+		text = value
+		text_changed.emit()
+
+
+func _on_text_changed():
+	if $Text:
+		$Text.text = text
+
+
+func _process(delta):
+	var cam:Camera3D = get_viewport().get_camera_3d()
+	if cam:
+		var dir:Vector3 = $Text.global_position - cam.global_position
+		$Text.look_at($Text.global_position + (dir * Vector3(1.0, 0.0, 1.0)).normalized())
+"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fpry8"]
+height = 0.1
+radius = 0.25
+
+[sub_resource type="Shader" id="Shader_2mxg1"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+void fragment() {
+	ALPHA = clamp(pow(UV.y, 4.0) * 8.0, 0.0, 1.0);
+	ALBEDO = vec3(1.0, 0.5, 0.0);
+	EMISSION = vec3(1.0, 0.5, 0.0) * 2.0;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71uqg"]
+render_priority = 0
+shader = SubResource("Shader_2mxg1")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k76rs"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 1.0
+radial_segments = 32
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[node name="Info" type="StaticBody3D"]
+script = SubResource("GDScript_fysi7")
+text = "Read me"
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_fpry8")
+
+[node name="Pillar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_71uqg")
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_k76rs")
+
+[node name="Text" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.001
+outline_modulate = Color(0, 0, 0, 0.52549)
+text = "Read me"
+font_size = 100
+outline_size = 8
+vertical_alignment = 2
+autowrap_mode = 2
+width = 2000.0
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
