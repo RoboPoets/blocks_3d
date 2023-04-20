@@ -10,15 +10,13 @@ extends Node3D
 @export var max_pitch:float = 75.0
 
 ## If true, the camera will listen for player input and adjust its rotation
-## accordingly. TODO: for now only mouse movement is supported.
+## accordingly.
 @export var enable_input:bool = true
 
-## The sensitivity for mouse move inputs. TODO: this should be saved
-## in a settings object and loaded from there.
+## The sensitivity for mouse move inputs.
 @export_range(0.1, 1.0) var mouse_sensitivity:float = 0.25
 
-## The sensitivity for joypad move inputs. TODO: this should be saved
-## in a settings object and loaded from there.
+## The sensitivity for joypad move inputs.
 @export_range(0.1, 1.0) var joypad_sensitivity:float = 0.25
 
 ## Invert camera movement direction along the X-axis.
@@ -43,20 +41,19 @@ var current_target:Node3D
 func _ready():
 	if !target.is_empty():
 		current_target = get_node(target)
-	if current_target == null:
-		set_process(false)
-
 	set_process_unhandled_input(enable_input)
 
 
 func _process(_delta):
-	set_position(current_target.global_transform.origin)
+	if current_target:
+		set_position(current_target.global_transform.origin)
 
-	var vec:Vector2 = Vector2.ZERO
-	vec.x = Input.get_action_strength("cam_right") - Input.get_action_strength("cam_left")
-	vec.y = Input.get_action_strength("cam_down") - Input.get_action_strength("cam_up")
-	vec *= joypad_sensitivity * 10.0
-	_update_rotation(vec)
+	if is_processing_unhandled_input():
+		var vec:Vector2 = Vector2.ZERO
+		vec.x = Input.get_action_strength("cam_right") - Input.get_action_strength("cam_left")
+		vec.y = Input.get_action_strength("cam_down") - Input.get_action_strength("cam_up")
+		vec *= joypad_sensitivity * 10.0
+		_update_rotation(vec)
 
 
 func _unhandled_input(event):
@@ -78,9 +75,9 @@ func _update_rotation(delta:Vector2):
 
 func reset_rotation():
 	_boom.rotation.x = 0.0
-	set_rotation(current_target.rotation)
+	if current_target:
+		set_rotation(current_target.rotation)
 
 
 func set_target(new_target:Node3D):
 	current_target = new_target
-	set_process(current_target != null)
