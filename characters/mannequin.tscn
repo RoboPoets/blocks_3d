@@ -109,7 +109,7 @@ func _process(delta):
 	set(\"parameters/Locomotion/walk-run/RunScale/scale\", run_scale)
 "
 
-[node name="Mannequin" groups=["Player"] instance=ExtResource("1_ulv4r")]
+[node name="Mannequin" instance=ExtResource("1_ulv4r")]
 script = ExtResource("2_waml3")
 
 [node name="Capsule" type="CollisionShape3D" parent="." index="0"]
