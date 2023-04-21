@@ -1,21 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://chpanlkrrgoa"]
+[gd_scene load_steps=3 format=3 uid="uid://toheirqifj0q"]
 
-[ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_chsoa"]
+[ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_17i5x"]
+
+[sub_resource type="GDScript" id="GDScript_bg470"]
+script/source = "@tool
+extends CSGCombiner3D
+
+signal touched(pos:Vector3)
+
+@export var size:Vector3 = Vector3(4.0, 3.0, 0.2) :
+	set(value):
+		$wall.size = value
+		$wall.set_position(Vector3(0, value.y / 2, 0))
+	get:
+		return $wall.size
+
+@export var window_size:Vector2 = Vector2(1.8, 2.2) : set = _set_window_size, get = _get_window_size
+
+
+func _set_window_size(value:Vector2):
+	var width:float = min($wall.size.x * 0.5 - 0.05, value.x)
+	var height:float = min(2.2, value.y)
+	var size:Vector3 = Vector3(width, height, $wall.size.z + 0.1)
+	$window.size = size
+	$window.set_position(Vector3(-width * 0.5 - 0.05, 2.3 - height * 0.5, 0))
+	$window2.size = size
+	$window2.set_position(Vector3(width * 0.5 + 0.05, 2.3 - height * 0.5, 0))
+
+
+func _get_window_size() ->Vector2:
+	return Vector2($window.size.x, $window.size.y)
+"
 
 [node name="BlockWallWindowDouble" type="CSGCombiner3D"]
-material_override = ExtResource("1_chsoa")
+material_override = ExtResource("1_17i5x")
 use_collision = true
+script = SubResource("GDScript_bg470")
 
 [node name="wall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 size = Vector3(4, 3, 0.2)
 
 [node name="window" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1.2, 0)
 operation = 2
-size = Vector3(1, 1.2, 0.4)
+size = Vector3(1.8, 2.2, 0.3)
 
 [node name="window2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1.2, 0)
 operation = 2
-size = Vector3(1, 1.2, 0.4)
+size = Vector3(1.8, 2.2, 0.3)

@@ -9,8 +9,8 @@ extends CSGCombiner3D
 signal touched(pos:Vector3)
 
 @export var size:Vector3 = Vector3(4.0, 0.2, 4.0) :
-	set(value): $wall.size = value
-	get: return $wall.size
+	set(value): $floor.size = value
+	get: return $floor.size
 "
 
 [node name="BlockFloor" type="CSGCombiner3D"]
@@ -18,7 +18,7 @@ material_override = ExtResource("1_ktv75")
 use_collision = true
 script = SubResource("GDScript_ig307")
 
-[node name="wall" type="CSGBox3D" parent="."]
+[node name="floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
 size = Vector3(4, 0.2, 4)

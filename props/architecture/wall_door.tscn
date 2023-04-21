@@ -1,11 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://chrm62nt4ns2i"]
+[gd_scene load_steps=3 format=3 uid="uid://chrm62nt4ns2i"]
 
 [ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_vmgvw"]
+
+[sub_resource type="GDScript" id="GDScript_i8uoa"]
+script/source = "@tool
+extends CSGCombiner3D
+
+signal touched(pos:Vector3)
+
+@export var size:Vector3 = Vector3(4.0, 3.0, 0.2) :
+	set(value):
+		$wall.size = value
+		$wall.set_position(Vector3(0, value.y / 2, 0))
+		door_width = door_width
+	get:
+		return $wall.size
+
+@export var door_width:float = 1.2 :
+	set(value):
+		$door.size = Vector3(min($wall.size.x, value), 2.2, $wall.size.z + 0.1)
+	get:
+		return $door.size.x
+"
 
 [node name="BlockWallDoor" type="CSGCombiner3D"]
 material_override = ExtResource("1_vmgvw")
 instance_shader_parameters/instance_albedo_color = Color(1, 1, 1, 1)
 use_collision = true
+script = SubResource("GDScript_i8uoa")
 
 [node name="wall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
