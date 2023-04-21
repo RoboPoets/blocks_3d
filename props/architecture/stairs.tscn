@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw761gphgh082"]
+
+[ext_resource type="Material" uid="uid://bhn0ttfn5tfre" path="res://addons/blocks_3d/materials/grid_grey.tres" id="1_srqhg"]
+
+[sub_resource type="GDScript" id="GDScript_lx3jb"]
+script/source = "@tool
+extends CSGCombiner3D
+
+signal touched(pos:Vector3)
+
+
+@export var size:Vector3 = Vector3(2.0, 1.0, 2.0) : set = _set_size, get = _get_size
+@export var num_steps:int = 5: set = _set_num_steps, get = _get_num_steps
+
+
+func _set_size(value:Vector3):
+	size = value
+	$Polygon.depth = value.x
+	$StaticBody3D/Collision.depth = value.x
+	$StaticBody3D/Collision.set_position(Vector3(value.x * 0.5, 0.0, value.z))
+	_rebuild_csg()
+	_rebuild_collision()
+
+
+func _get_size() -> Vector3:
+	return size
+
+
+func _set_num_steps(value:int):
+	num_steps = value
+	_rebuild_csg()
+	_rebuild_collision()
+	pass
+
+
+func _get_num_steps() -> int:
+	return num_steps
+
+
+func _rebuild_csg():
+	var step_height:float = size.y / num_steps
+	var step_length:float = size.z / num_steps
+	var points:PackedVector2Array = [
+		Vector2(size.z, size.y),
+		Vector2(size.z, size.y - step_height),
+		Vector2(0, -step_height),
+	]
+
+	for i in num_steps:
+		points.append(Vector2(i * step_length, (i + 1) * step_height))
+		points.append(Vector2((i + 1) * step_length, (i + 1) * step_height))
+
+	$Polygon.set_polygon(points)
+
+
+func _rebuild_collision():
+	var step_height:float = size.y / num_steps
+	var step_length:float = size.z / num_steps
+	if step_height >= step_length:
+		$StaticBody3D/Collision.set_polygon([
+			Vector2(step_length / 2, size.y),
+			Vector2(0, size.y),
+			Vector2(0, size.y - step_height),
+			Vector2(size.z, -step_height),
+			Vector2(size.z + step_length / 2, 0)
+		])
+		return
+
+	var points:PackedVector2Array = [
+		Vector2(size.z, 0),
+		Vector2(size.z, -step_height),
+		Vector2(0, size.y - step_height),
+		Vector2(0, size.y),
+	]
+
+	for i in num_steps:
+		points.append(Vector2((i + 1) * step_length, (num_steps - i) * step_height))
+		points.append(Vector2((i + 1) * step_length + step_height, (num_steps - i - 1) * step_height))
+
+	$StaticBody3D/Collision.set_polygon(points)
+"
+
+[node name="BlockStair" type="CSGCombiner3D"]
+material_override = ExtResource("1_srqhg")
+script = SubResource("GDScript_lx3jb")
+
+[node name="Polygon" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+polygon = PackedVector2Array(2, 1, 2, 0.8, 0, -0.2, 0, 0.2, 0.4, 0.2, 0.4, 0.4, 0.8, 0.4, 0.8, 0.6, 1.2, 0.6, 1.2, 0.8, 1.6, 0.8, 1.6, 1, 2, 1)
+depth = 2.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionPolygon3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 2)
+depth = 2.0
+polygon = PackedVector2Array(2, 0, 2, -0.2, 0, 0.8, 0, 1, 0.4, 1, 0.6, 0.8, 0.8, 0.8, 1, 0.6, 1.2, 0.6, 1.4, 0.4, 1.6, 0.4, 1.8, 0.2, 2, 0.2, 2.2, 0)
