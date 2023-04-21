@@ -6,8 +6,8 @@
 script/source = "@tool
 extends CSGCombiner3D
 
-signal touched(pos:Vector3)
 
+signal touched(pos:Vector3)
 
 @export var size:Vector3 = Vector3(2.0, 1.0, 2.0) : set = _set_size, get = _get_size
 @export var num_steps:int = 5: set = _set_num_steps, get = _get_num_steps

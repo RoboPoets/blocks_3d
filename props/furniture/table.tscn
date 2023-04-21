@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bws5yk7higmsu"]
+
+[ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_em7xt"]
+
+[sub_resource type="GDScript" id="GDScript_s2hih"]
+script/source = "@tool
+extends CSGCombiner3D
+
+
+@export var size:Vector3 = Vector3(1.8, 0.8, 1.2) : set = _set_size, get = _get_size
+
+
+func _set_size(value:Vector3):
+	$Top.size = Vector3(value.x, 0.03, value.z)
+	$Top.set_position(Vector3(0, value.y, 0))
+	$Top/Support.size = Vector3(value.x - 0.1, 0.03, value.z - 0.1)
+	$Top/Cutout.size = Vector3(value.x - 0.15, 0.04, value.z - 0.15)
+	$Leg1.height = value.y
+	$Leg1.set_position(Vector3(value.x * 0.5 - 0.05, value.y * 0.5, value.z * 0.5 - 0.05))
+	$Leg2.height = value.y
+	$Leg2.set_position(Vector3(0.05 - value.x * 0.5, value.y * 0.5, value.z * 0.5 - 0.05))
+	$Leg3.height = value.y
+	$Leg3.set_position(Vector3(0.05 - value.x * 0.5, value.y * 0.5, 0.05 - value.z * 0.5))
+	$Leg4.height = value.y
+	$Leg4.set_position(Vector3(value.x * 0.5 - 0.05, value.y * 0.5, 0.05 - value.z * 0.5))
+
+
+func _get_size() -> Vector3:
+	return Vector3($Top.size.x, $Top.get_position().y, $Top.size.z)
+"
+
+[node name="BlockDinnerTable" type="CSGCombiner3D"]
+material_override = ExtResource("1_em7xt")
+use_collision = true
+script = SubResource("GDScript_s2hih")
+
+[node name="Top" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+size = Vector3(1.8, 0.03, 1.2)
+
+[node name="Support" type="CSGBox3D" parent="Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
+size = Vector3(1.7, 0.03, 1.1)
+
+[node name="Cutout" type="CSGBox3D" parent="Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
+operation = 2
+size = Vector3(1.65, 0.04, 1.05)
+
+[node name="Leg1" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, 0.55)
+radius = 0.02
+height = 0.8
+
+[node name="Leg2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, 0.55)
+radius = 0.02
+height = 0.8
+
+[node name="Leg3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, -0.55)
+radius = 0.02
+height = 0.8
+
+[node name="Leg4" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, -0.55)
+radius = 0.02
+height = 0.8

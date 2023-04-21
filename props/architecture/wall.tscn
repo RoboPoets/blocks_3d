@@ -6,7 +6,6 @@
 script/source = "@tool
 extends CSGCombiner3D
 
-signal touched(pos:Vector3)
 
 @export var size:Vector3 = Vector3(4.0, 3.0, 0.2) :
 	set(value):
