@@ -29,7 +29,7 @@ func _get_size() -> Vector3:
 	return Vector3($Top.size.x, $Top.get_position().y, $Top.size.z)
 "
 
-[node name="BlockDinnerTable" type="CSGCombiner3D"]
+[node name="BlockTable" type="CSGCombiner3D"]
 material_override = ExtResource("1_em7xt")
 use_collision = true
 script = SubResource("GDScript_s2hih")

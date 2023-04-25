@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqlecjtrepbbb"]
+
+[ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_tgsvm"]
+
+[sub_resource type="GDScript" id="GDScript_3hxed"]
+script/source = "@tool
+extends CSGCombiner3D
+
+
+@export var size:Vector3 = Vector3(1.0, 2.0, 0.5) : set = _set_size, get = _get_size
+@export var left_door_open:bool = false : set = _set_left_door_open, get = _get_left_door_open
+@export var right_door_open:bool = false : set = _set_right_door_open, get = _get_right_door_open
+@export var num_shelves:int = 0 : set = _set_num_shelves, get = _get_num_shelves
+
+func _set_size(value:Vector3):
+	$Body.size = value
+	$Body.set_position(Vector3(0, value.y * 0.5, 0))
+
+	var door_size:Vector3 = Vector3(value.x * 0.5 - 0.05, value.y - 0.05, value.z)
+	$Left.size = door_size
+	$Right.size = door_size
+	$Left.set_position(Vector3(value.x * 0.25, value.y * 0.5, -0.02))
+	$Right.set_position(Vector3(value.x * -0.25, value.y * 0.5, -0.02))
+
+	_set_num_shelves(num_shelves)
+
+
+func _get_size() -> Vector3:
+	return $Body.size
+
+
+func _set_left_door_open(value:bool):
+	$Left.operation = OPERATION_SUBTRACTION if value else OPERATION_UNION
+
+
+func _get_left_door_open() -> bool:
+	return $Left.operation == OPERATION_SUBTRACTION
+
+
+func _set_right_door_open(value:bool):
+	$Right.operation = OPERATION_SUBTRACTION if value else OPERATION_UNION
+
+
+func _get_right_door_open() -> bool:
+	return $Right.operation == OPERATION_SUBTRACTION
+
+
+func _set_num_shelves(value:int):
+	num_shelves = max(value, 0)
+
+	var num:int = $Shelves.get_child_count()
+	for i in num:
+		$Shelves.get_child(i).queue_free()
+
+	if num_shelves == 0:
+		return
+
+	var closet_size:Vector3 = size
+	var step:float = closet_size.y / (num_shelves + 1)
+	for i in num_shelves:
+		var shelf:CSGBox3D = CSGBox3D.new()
+		shelf.size = Vector3(closet_size.x - 0.05, 0.02, closet_size.z - 0.05)
+		shelf.set_position(Vector3(0.0, step + step * i, 0.0))
+		$Shelves.add_child(shelf)
+		shelf.set_owner(self)
+
+
+func _get_num_shelves() -> int:
+	return num_shelves
+"
+
+[node name="BlockCloset" type="CSGCombiner3D"]
+material_override = ExtResource("1_tgsvm")
+use_collision = true
+script = SubResource("GDScript_3hxed")
+
+[node name="Body" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(1, 2, 0.5)
+
+[node name="Left" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1, -0.02)
+size = Vector3(0.45, 1.95, 0.5)
+
+[node name="Right" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -0.02)
+size = Vector3(0.45, 1.95, 0.5)
+
+[node name="Shelves" type="CSGCombiner3D" parent="."]

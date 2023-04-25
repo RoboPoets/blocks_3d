@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://u5ne2aw2ba0q"]
+
+[ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_5aqgl"]
+
+[sub_resource type="GDScript" id="GDScript_bn4ug"]
+script/source = "@tool
+extends CSGCombiner3D
+
+
+@export var seat_size:Vector3 = Vector3(0.5, 0.5, 0.5) : set = _set_size, get = _get_size
+@export var backrest_height:float = 1.0 : set = _set_height, get = _get_height
+
+
+func _set_size(value:Vector3):
+	var height: float = backrest_height
+	$Seat.size = Vector3(value.x, 0.03, value.z)
+	$Seat.set_position(Vector3(0, value.y, 0))
+	$Leg1.size = Vector3(0.04, value.y, 0.04)
+	$Leg1.set_position(Vector3(value.x * 0.5 - 0.02, value.y * 0.5, 0.02 - value.z * 0.5))
+	$Leg2.size = Vector3(0.04, value.y, 0.04)
+	$Leg2.set_position(Vector3(0.02 - value.x * 0.5, value.y * 0.5, 0.02 - value.z * 0.5))
+	$Leg3.size = Vector3(0.04, height, 0.04)
+	$Leg3.set_position(Vector3(0.02 - value.x * 0.5, height * 0.5, value.z * 0.5 - 0.02))
+	$Leg4.size = Vector3(0.04, height, 0.04)
+	$Leg4.set_position(Vector3(value.x * 0.5 - 0.02, height * 0.5, value.z * 0.5 - 0.02))
+	$Back.size = Vector3(value.x, (height - value.y) * 0.5, 0.04)
+	$Back.set_position(Vector3(0.0, height - (height - value.y) * 0.25, value.z * 0.5 - 0.02))
+
+
+func _get_size() -> Vector3:
+	return Vector3($Seat.size.x, $Seat.get_position().y, $Seat.size.z)
+
+
+func _set_height(value:float):
+	var size:Vector3 = seat_size
+	$Leg3.size = Vector3(0.04, value, 0.04)
+	$Leg3.set_position(Vector3(0.02 - size.x * 0.5, value * 0.5, size.z * 0.5 - 0.02))
+	$Leg4.size = Vector3(0.04, value, 0.04)
+	$Leg4.set_position(Vector3(size.x * 0.5 - 0.02, value * 0.5, size.z * 0.5 - 0.02))
+	$Back.size = Vector3(size.x, (value - size.y) * 0.5, 0.04)
+	$Back.set_position(Vector3(0.0, value - (value - size.y) * 0.25, size.z * 0.5 - 0.02))
+
+
+func _get_height() -> float:
+	return $Back.get_position().y + $Back.size.y * 0.5
+"
+
+[node name="BlockChair" type="CSGCombiner3D"]
+material_override = ExtResource("1_5aqgl")
+use_collision = true
+script = SubResource("GDScript_bn4ug")
+
+[node name="Seat" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(0.5, 0.03, 0.5)
+
+[node name="Back" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0.23)
+size = Vector3(0.5, 0.25, 0.04)
+
+[node name="Leg1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.25, -0.23)
+size = Vector3(0.04, 0.5, 0.04)
+
+[node name="Leg2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.25, -0.23)
+size = Vector3(0.04, 0.5, 0.04)
+
+[node name="Leg3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.5, 0.23)
+size = Vector3(0.04, 1, 0.04)
+
+[node name="Leg4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.5, 0.23)
+size = Vector3(0.04, 1, 0.04)
