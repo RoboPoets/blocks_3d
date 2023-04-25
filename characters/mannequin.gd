@@ -71,7 +71,7 @@ func _physics_process(delta):
 		var trace:Dictionary = trace_queue.pop_back()
 		if trace.id == &"step":
 			var result:Dictionary = space.intersect_ray(trace.params)
-			if not result.is_empty():
+			if not result.is_empty() and result.collider.has_signal("touched"):
 				result.collider.emit_signal("touched", result.position)
 
 
