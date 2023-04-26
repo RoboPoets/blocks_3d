@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://di4r5y3new2bv"]
+
+[ext_resource type="Material" uid="uid://cntuw0d42ylyc" path="res://addons/blocks_3d/materials/grid_green.tres" id="1_5cvs6"]
+
+[sub_resource type="GDScript" id="GDScript_cbwo2"]
+script/source = "@tool
+extends CSGCombiner3D
+
+
+@export var trunk_height:float = 4.0 : set = _set_trunk_height, get = _get_trunk_height
+@export var trunk_radius:float = 0.5 : set = _set_trunk_radius, get = _get_trunk_radius
+
+@export var crown_height:float = 4.0 : set = _set_crown_height, get = _get_crown_height
+@export var crown_radius:float = 2.0 : set = _set_crown_radius, get = _get_crown_radius
+
+
+func _set_trunk_height(value:float):
+	$Trunk.height = value
+	$Trunk.set_position(Vector3(0.0, value * 0.5, 0.0))
+	$Crown.set_position(Vector3(0.0, value, 0.0))
+
+
+func _get_trunk_height() -> float:
+	return $Trunk.height
+
+
+func _set_trunk_radius(value:float):
+	$Trunk.radius = value
+
+
+func _get_trunk_radius() -> float:
+	return $Trunk.radius
+
+
+func _set_crown_height(value:float):
+	$Crown.height = value
+
+
+func _get_crown_height() -> float:
+	return $Crown.height
+
+
+func _set_crown_radius(value:float):
+	var height:float = crown_height
+	$Crown.radius = value
+
+
+func _get_crown_radius() -> float:
+	return $Crown.radius
+"
+
+[node name="BlockTree" type="CSGCombiner3D"]
+material_override = ExtResource("1_5cvs6")
+use_collision = true
+script = SubResource("GDScript_cbwo2")
+
+[node name="Trunk" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+height = 4.0
+sides = 12
+
+[node name="Crown" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+radius = 2.0
+height = 4.0
+cone = true
