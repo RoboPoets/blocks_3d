@@ -1,0 +1,143 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc3d82eypbkni"]
+
+[ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_vd1l1"]
+
+[sub_resource type="GDScript" id="GDScript_m25k1"]
+script/source = "@tool
+extends CSGCombiner3D
+
+
+@export var width:float = 2.0 : set = _set_width, get = _get_width
+@export var height:float = 1.0 : set = _set_height, get = _get_height
+@export_range(0.15, 1.0, 0.05) var picket_distance:float = 0.4 : set = _set_picket_dist, get = _get_picket_dist
+@export var has_left_post:bool = false : set = _set_has_left_post, get = _get_has_left_post
+@export var has_right_post:bool = false : set = _set_has_right_post, get = _get_has_right_post
+
+func _set_width(value:float) -> void:
+	width = value
+	$Top.size = Vector3(width, 0.1, 0.02)
+	$Bottom.size = Vector3(width, 0.1, 0.02)
+	_set_picket_dist(picket_distance)
+
+	var post:CSGCylinder3D = get_node_or_null(\"LeftPost\")
+	if post:
+		post.set_position(Vector3(width * 0.5, height * 0.5 + 0.05, 0.0))
+
+	post = get_node_or_null(\"RightPost\")
+	if post:
+		post.set_position(Vector3(-width * 0.5, height * 0.5 + 0.05, 0.0))
+
+
+func _get_width() -> float:
+	return width
+
+
+func _set_height(value:float) -> void:
+	height = value
+	$Top.set_position(Vector3(0.0, height - 0.2, 0.0))
+
+
+func _get_height() -> float:
+	return height
+
+
+func _set_picket_dist(value:float) -> void:
+	picket_distance = value
+
+	var num:int = $Pickets.get_child_count()
+	for i in num:
+		$Pickets.get_child(i).queue_free()
+
+	var fence_width := width
+	var num_pickets := round(fence_width / picket_distance)
+
+	for i in num_pickets:
+		var picket:CSGBox3D = CSGBox3D.new()
+		picket.size = Vector3(0.1, height, 0.02)
+		picket.set_position(Vector3(picket_distance * 0.5 + picket_distance * i - fence_width * 0.5, 0.5, -0.025))
+		$Pickets.add_child(picket)
+		picket.set_owner(self)
+
+
+func _get_picket_dist() -> float:
+	return picket_distance
+
+
+func _set_has_left_post(value:bool) -> void:
+	has_left_post = value
+	var post:CSGCylinder3D = get_node_or_null(\"LeftPost\")
+	if (post != null) == value:
+		return
+
+	if post:
+		post.queue_free()
+	else:
+		post = CSGCylinder3D.new()
+		post.name = \"LeftPost\"
+		post.height = height + 0.1
+		post.radius = 0.04
+		post.set_position(Vector3(width * 0.5, height * 0.5 + 0.05, 0.0))
+		add_child(post)
+		post.set_owner(self)
+
+
+func _get_has_left_post() -> bool:
+	return has_left_post
+
+
+func _set_has_right_post(value:bool) -> void:
+	has_right_post = value
+	var post:CSGCylinder3D = get_node_or_null(\"RightPost\")
+	if (post != null) == value:
+		return
+
+	if post:
+		post.queue_free()
+	else:
+		post = CSGCylinder3D.new()
+		post.name = \"RightPost\"
+		post.height = height + 0.1
+		post.radius = 0.04
+		post.set_position(Vector3(-width * 0.5, height * 0.5 + 0.05, 0.0))
+		add_child(post)
+		post.set_owner(self)
+
+
+func _get_has_right_post() -> bool:
+	return has_right_post
+"
+
+[node name="BlockFence" type="CSGCombiner3D"]
+material_override = ExtResource("1_vd1l1")
+use_collision = true
+script = SubResource("GDScript_m25k1")
+
+[node name="Top" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+size = Vector3(2, 0.1, 0.02)
+
+[node name="Bottom" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+size = Vector3(2, 0.1, 0.02)
+
+[node name="Pickets" type="CSGCombiner3D" parent="."]
+
+[node name="@@18756" type="CSGBox3D" parent="Pickets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.5, -0.025)
+size = Vector3(0.1, 1, 0.02)
+
+[node name="@@18757" type="CSGBox3D" parent="Pickets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, -0.025)
+size = Vector3(0.1, 1, 0.02)
+
+[node name="@@18758" type="CSGBox3D" parent="Pickets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.025)
+size = Vector3(0.1, 1, 0.02)
+
+[node name="@@18759" type="CSGBox3D" parent="Pickets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, -0.025)
+size = Vector3(0.1, 1, 0.02)
+
+[node name="@@18760" type="CSGBox3D" parent="Pickets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.5, -0.025)
+size = Vector3(0.1, 1, 0.02)
