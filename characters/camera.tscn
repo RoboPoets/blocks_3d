@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://b15xpaurii7wa"]
+[gd_scene load_steps=3 format=3 uid="uid://b15xpaurii7wa"]
 
 [ext_resource type="Script" path="res://addons/blocks_3d/characters/camera.gd" id="1_8b2i0"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_la3xt"]
+auto_exposure_enabled = true
+auto_exposure_scale = 0.2
+auto_exposure_speed = 2.0
+frustum_focal_length = 18.0
+auto_exposure_min_exposure_value = -4.0
 
 [node name="Camera" type="Node3D"]
 script = ExtResource("1_8b2i0")
@@ -8,6 +15,8 @@ limit_pitch_range = true
 
 [node name="CameraBoom" type="SpringArm3D" parent="."]
 spring_length = 2.5
+margin = 0.05
 
 [node name="Camera" type="Camera3D" parent="CameraBoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+attributes = SubResource("CameraAttributesPhysical_la3xt")
