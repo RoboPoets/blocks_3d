@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://co56yfqts4poq"]
+
+[ext_resource type="Shader" path="res://addons/blocks_3d/shaders/grid.gdshader" id="1_etf7t"]
+[ext_resource type="Texture2D" uid="uid://cugll8qgsqwhu" path="res://addons/blocks_3d/textures/grid.png" id="2_u1tee"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_etf7t")
+shader_parameter/albedo_color = Color(0.290196, 0.290196, 0.290196, 1)
+shader_parameter/uv_scale = 0.5
+shader_parameter/albedo_texture = ExtResource("2_u1tee")
+shader_parameter/roughness_texture = ExtResource("2_u1tee")

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://bayhvrdktmxs6"]
+
+[ext_resource type="Material" uid="uid://co56yfqts4poq" path="res://addons/blocks_3d/materials/grid_black.tres" id="1_7xm48"]
+
+[sub_resource type="Curve3D" id="Curve3D_ibwkc"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="GDScript" id="GDScript_fpeom"]
+script/source = "@tool
+extends Path3D
+
+@export var width:float = 4.0 : set = _set_width, get = _get_width
+@export var closed:bool = false :
+	set(value): $Polygon.path_joined = value
+	get: return $Polygon.path_joined
+
+@export_category(\"GeometryInstance3D\")
+@export var material_override:Material :
+	set(value): $Polygon.material_override = value
+	get: return $Polygon.material_override
+
+
+func _set_width(value:float) -> void:
+	width = value
+
+	var half_width := width * 0.5
+	var points:PackedVector2Array = $Polygon.polygon
+	points[0].x = -half_width
+	points[1].x = 0.01 - half_width
+	points[2].x = 0.2 - half_width
+	points[3].x = half_width - 0.2
+	points[4].x = half_width - 0.01
+	points[5].x = half_width
+	$Polygon.polygon = points
+
+
+func _get_width() -> float:
+	return width
+"
+
+[node name="BlockRoad" type="Path3D"]
+curve = SubResource("Curve3D_ibwkc")
+script = SubResource("GDScript_fpeom")
+
+[node name="Polygon" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-2, 0, -1.99, 0.005, -1.8, 0.02, 1.8, 0.02, 1.99, 0.005, 2, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true
+material = ExtResource("1_7xm48")
