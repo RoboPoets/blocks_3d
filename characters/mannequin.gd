@@ -1,6 +1,13 @@
 extends CharacterBody3D
 
 
+enum InputVectorSpace {
+	GLOBAL, ## Global space
+	LOCAL,  ## Relative to the character's transform
+	CAMERA, ## Relative to the camera's transform
+}
+
+
 ## The default walk speed in m/s.
 @export var max_speed:float = 6.0
 
@@ -12,8 +19,16 @@ extends CharacterBody3D
 ## to rotate by 180 degrees.
 @export var rotation_rate:float = 540.0
 
+## The default frame of reference that the character's input vector will
+## be evaluated in. The default value is CAMERA, which is well suited for
+## third-person character controllers.
+@export var default_input_space: InputVectorSpace = InputVectorSpace.CAMERA
+
 ## If true, will start listening for player input when the game starts.
 @export var current:bool = true
+
+## The current frame of reference for evaluating the input vector.
+@onready var current_input_space: InputVectorSpace = default_input_space
 
 ## The accumulated input vector for this character.
 var current_input_vector:Vector3 = Vector3.ZERO
@@ -27,6 +42,7 @@ var trace_queue:Array
 ## animations fire when they're active.
 var last_foot_down:StringName
 
+
 func _ready():
 	set_process_unhandled_input(current)
 	if current:
@@ -37,10 +53,12 @@ func _physics_process(delta):
 	# move character in the direction of the input vector
 	var current_vel:Vector3 = velocity
 	var current_grav:float = current_vel.y
-	var view_transform: Transform3D = global_transform
-	var camera = get_viewport().get_camera_3d()
-	if camera:
-		view_transform = camera.global_transform
+
+	var view_transform: Transform3D = Transform3D.IDENTITY
+	if current_input_space == InputVectorSpace.LOCAL:
+		view_transform = global_transform
+	elif current_input_space == InputVectorSpace.CAMERA:
+		view_transform = get_viewport().get_camera_3d().global_transform
 
 	view_transform.basis.z = (view_transform.basis.z * Vector3(1,0,1)).normalized()
 	var fwd:Vector3 = view_transform.basis.z * current_input_vector.z * max_speed
