@@ -40,6 +40,7 @@ func _ready():
 		var pos:Vector3 = get_starting_position()
 
 		if player:
+			player.add_to_group(player_group)
 			player.set_position(pos)
 			root.call_deferred("add_child", player)
 
