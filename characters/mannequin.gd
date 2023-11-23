@@ -58,7 +58,9 @@ func _physics_process(delta):
 	if current_input_space == InputVectorSpace.LOCAL:
 		view_transform = global_transform
 	elif current_input_space == InputVectorSpace.CAMERA:
-		view_transform = get_viewport().get_camera_3d().global_transform
+		var cam = get_viewport().get_camera_3d()
+		if cam:
+			view_transform = cam.global_transform
 
 	view_transform.basis.z = (view_transform.basis.z * Vector3(1,0,1)).normalized()
 	var fwd:Vector3 = view_transform.basis.z * current_input_vector.z * max_speed
