@@ -29,27 +29,37 @@ func _ready():
 		return
 
 	var root:Window = get_tree().get_root()
+	var player:CharacterBody3D = null
+	var cam:Node3D = null
 
-	# Spawn default player character and camera
-	var player_group:String = ProjectSettings.get_setting(Types.settings_key_node_group, "")
+	# Spawn default player character
+	var player_group:String = ProjectSettings.get_setting(Types.settings_key_char_node_group, "")
 	if not player_group.is_empty() and not get_tree().has_group(player_group):
 		print("No player character found, trying to spawn default character...")
 
-		var cam:Node3D = create_default_camera()
-		var player:CharacterBody3D = create_default_character()
-		var pos:Vector3 = get_starting_position()
-
+		player = create_default_character()
 		if player:
 			player.add_to_group(player_group)
-			player.set_position(pos)
+			player.set_position(get_starting_position())
 			root.call_deferred("add_child", player)
+	else:
+		for n in get_tree().get_nodes_in_group(player_group):
+			if n is CharacterBody3D:
+				player = n
+				break
 
+	# Spawn default player camera
+	var cam_group:String = ProjectSettings.get_setting(Types.settings_key_cam_node_group, "")
+	if not cam_group.is_empty() and not get_tree().has_group(cam_group):
+		print("No player camera found, trying to spawn default camera...")
+
+		cam = create_default_camera()
 		if cam:
-			if player:
-				if cam.has_method("set_target"):
-					cam.set_target(player)
+			if player != null and cam.has_method("set_target"):
+				cam.set_target(player)
 			else:
-				cam.set_position(pos)
+				cam.set_position(get_starting_position())
+			cam.add_to_group(cam_group)
 			root.call_deferred("add_child", cam)
 
 	# Spawn default directional light
