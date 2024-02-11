@@ -9,10 +9,12 @@ const Types = preload("res://addons/blocks_3d/scripts/types.gd")
 
 func _enable_plugin():
 	add_autoload_singleton("PlayerSpawner", "res://addons/blocks_3d/scripts/player_spawner.gd")
+	add_autoload_singleton("StatEvents", "res://addons/blocks_3d/scripts/stat_events.gd")
 
 
 func _disable_plugin():
 	remove_autoload_singleton("PlayerSpawner")
+	remove_autoload_singleton("StatEvents")
 
 
 func _enter_tree():
