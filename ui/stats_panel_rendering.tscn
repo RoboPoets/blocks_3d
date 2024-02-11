@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvkhu5u815tfq"]
+
+[ext_resource type="Theme" uid="uid://bnpkkfvi8iovn" path="res://addons/blocks_3d/ui/stats_theme.tres" id="1_h35hm"]
+[ext_resource type="Script" path="res://addons/blocks_3d/ui/stats_panel_rendering.gd" id="1_mm3k2"]
+
+[node name="StatsPanelRendering" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_h35hm")
+script = ExtResource("1_mm3k2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 131.0
+offset_bottom = 60.0
+theme_override_constants/separation = 8
+
+[node name="Labels" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="LabelGame" type="Label" parent="HBoxContainer/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.560784, 0.905882, 1, 1)
+text = "Game:"
+
+[node name="LabelDraw" type="Label" parent="HBoxContainer/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.713726, 1, 0.560784, 1)
+text = "Draw:"
+
+[node name="LabelGPU" type="Label" parent="HBoxContainer/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "GPU:"
+
+[node name="Values" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Game" type="Label" parent="HBoxContainer/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 ms"
+
+[node name="Draw" type="Label" parent="HBoxContainer/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 ms
+"
+
+[node name="GPU" type="Label" parent="HBoxContainer/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 ms
+"
