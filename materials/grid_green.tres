@@ -7,6 +7,7 @@
 render_priority = 0
 shader = ExtResource("1_5qwr6")
 shader_parameter/albedo_color = Color(0.580392, 1, 0.588235, 1)
-shader_parameter/uv_scale = 0.5
+shader_parameter/uv_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/use_triplanar_mapping = true
 shader_parameter/albedo_texture = ExtResource("2_5bllh")
 shader_parameter/roughness_texture = ExtResource("2_5bllh")
