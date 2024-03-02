@@ -120,6 +120,7 @@ func _process(delta):
 "
 
 [node name="Mannequin" instance=ExtResource("1_ulv4r")]
+collision_layer = 257
 script = ExtResource("2_waml3")
 
 [node name="Capsule" type="CollisionShape3D" parent="." index="0"]
