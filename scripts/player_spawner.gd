@@ -90,7 +90,7 @@ func get_starting_position() -> Vector3:
 	if DirAccess.dir_exists_absolute(data_path):
 		var files:PackedStringArray = DirAccess.get_files_at(data_path)
 		for f in files:
-			if f.contains(scene_file + "-editstate-"):
+			if f.begins_with(scene_file + "-editstate-"):
 				file_name = f
 				break
 
