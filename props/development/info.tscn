@@ -55,6 +55,8 @@ cap_top = false
 cap_bottom = false
 
 [node name="Info" type="StaticBody3D"]
+collision_layer = 0
+collision_mask = 0
 script = SubResource("GDScript_fysi7")
 text = "Read me"
 
