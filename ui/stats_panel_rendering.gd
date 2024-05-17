@@ -11,6 +11,7 @@ var _viewports:Array[RID] = []
 
 var _probes_enabled:bool = true
 var _gi_enabled:bool = true
+var _occ_enabled:bool = true
 
 
 func _enter_tree():
@@ -30,6 +31,19 @@ func _ready():
 
 	for rid in _viewports:
 		RenderingServer.viewport_set_measure_render_time(rid, true)
+
+	for n in get_tree().get_root().find_children("", "ReflectionProbe", true, false):
+		_probes_enabled = n.visible
+		break
+	%Probes.text = "on" if _probes_enabled else "off"
+
+	for n in get_tree().get_root().find_children("", "WorldEnvironment", true, false):
+		_gi_enabled = n.environment.sdfgi_enabled
+		break
+	%GI.text = "on" if _gi_enabled else "off"
+
+	_occ_enabled = get_tree().get_root().use_occlusion_culling
+	%Occlusion.text = "on" if _occ_enabled else "off"
 
 	set_process_unhandled_key_input(enable_input)
 
@@ -58,11 +72,18 @@ func _unhandled_key_input(event:InputEvent):
 		_probes_enabled = not _probes_enabled
 		for n in get_tree().get_root().find_children("", "ReflectionProbe", true, false):
 			n.visible = _probes_enabled
+		%Probes.text = "on" if _probes_enabled else "off"
 
 	if event.keycode == KEY_F3:
 		_gi_enabled = not _gi_enabled
 		for n in get_tree().get_root().find_children("", "WorldEnvironment", true, false):
 			n.environment.sdfgi_enabled = _gi_enabled
+		%GI.text = "on" if _gi_enabled else "off"
+
+	if event.keycode == KEY_F4:
+		_occ_enabled = not _occ_enabled
+		get_tree().get_root().use_occlusion_culling = _occ_enabled
+		%Occlusion.text = "on" if _occ_enabled else "off"
 
 
 func add_viewport(rid:RID):

@@ -14,7 +14,7 @@ mouse_filter = 2
 theme = ExtResource("1_h35hm")
 script = ExtResource("1_mm3k2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Timing" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -22,40 +22,95 @@ offset_right = 131.0
 offset_bottom = 60.0
 theme_override_constants/separation = 8
 
-[node name="Labels" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Labels" type="VBoxContainer" parent="Timing"]
 layout_mode = 2
 
-[node name="LabelGame" type="Label" parent="HBoxContainer/Labels"]
+[node name="LabelGame" type="Label" parent="Timing/Labels"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.560784, 0.905882, 1, 1)
 text = "Game:"
 
-[node name="LabelDraw" type="Label" parent="HBoxContainer/Labels"]
+[node name="LabelDraw" type="Label" parent="Timing/Labels"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.713726, 1, 0.560784, 1)
 text = "Draw:"
 
-[node name="LabelGPU" type="Label" parent="HBoxContainer/Labels"]
+[node name="LabelGPU" type="Label" parent="Timing/Labels"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
 text = "GPU:"
 
-[node name="Values" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Values" type="VBoxContainer" parent="Timing"]
 layout_mode = 2
 
-[node name="Game" type="Label" parent="HBoxContainer/Values"]
+[node name="Game" type="Label" parent="Timing/Values"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0.00 ms"
 
-[node name="Draw" type="Label" parent="HBoxContainer/Values"]
+[node name="Draw" type="Label" parent="Timing/Values"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0.00 ms
 "
 
-[node name="GPU" type="Label" parent="HBoxContainer/Values"]
+[node name="GPU" type="Label" parent="Timing/Values"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0.00 ms
 "
+
+[node name="Features" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -179.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 84.0
+grow_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="Labels" type="VBoxContainer" parent="Features"]
+layout_mode = 2
+
+[node name="LabelProbes" type="Label" parent="Features/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "Reflection Probes (F2):"
+horizontal_alignment = 2
+
+[node name="LabelGI" type="Label" parent="Features/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "Dynamic GI (F3):"
+horizontal_alignment = 2
+
+[node name="LabelOcc" type="Label" parent="Features/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "Occlusion Culling (F4):"
+horizontal_alignment = 2
+
+[node name="Values" type="VBoxContainer" parent="Features"]
+custom_minimum_size = Vector2(22, 0)
+layout_mode = 2
+
+[node name="Probes" type="Label" parent="Features/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "off"
+horizontal_alignment = 2
+
+[node name="GI" type="Label" parent="Features/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "off"
+horizontal_alignment = 2
+
+[node name="Occlusion" type="Label" parent="Features/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "off"
+horizontal_alignment = 2
