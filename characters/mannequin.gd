@@ -97,10 +97,8 @@ func _physics_process(delta):
 
 ## Handles all the player input coming from connected input devices.
 func _unhandled_input(event):
-	var vec:Vector3 = Vector3.ZERO
-	vec.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	vec.z = Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
-	current_input_vector = vec.normalized() if vec.length() > 1 else vec
+	var vec := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	current_input_vector = Vector3(vec.x, 0.0, vec.y)
 
 
 func on_anim_foot_down(bone:StringName):
