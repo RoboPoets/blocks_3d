@@ -36,7 +36,7 @@ _subresources={
 "RESET": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "res://addons/blocks_3d/animations/reset.res",
+"save_to_file/path": "res://addons/blocks_3d/animations/reset.tres",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
@@ -1835,7 +1835,7 @@ _subresources={
 "idle": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://addons/blocks_3d/animations/idle.res",
+"save_to_file/path": "res://addons/blocks_3d/animations/idle.tres",
 "settings/loop_mode": 1,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
@@ -3634,7 +3634,7 @@ _subresources={
 "run": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://addons/blocks_3d/animations/run.res",
+"save_to_file/path": "res://addons/blocks_3d/animations/run.tres",
 "settings/loop_mode": 1,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
@@ -5433,7 +5433,7 @@ _subresources={
 "walk": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "res://addons/blocks_3d/animations/walk.res",
+"save_to_file/path": "res://addons/blocks_3d/animations/walk.tres",
 "settings/loop_mode": 1,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
