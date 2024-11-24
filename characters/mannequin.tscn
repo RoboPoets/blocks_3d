@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpmi64v8v4i6w"]
+[gd_scene load_steps=22 format=3 uid="uid://bpmi64v8v4i6w"]
 
 [ext_resource type="PackedScene" uid="uid://dhm4npydhgkba" path="res://addons/blocks_3d/characters/mannequin.glb" id="1_ulv4r"]
 [ext_resource type="Script" path="res://addons/blocks_3d/characters/mannequin.gd" id="2_waml3"]
@@ -6,6 +6,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4a8ri"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sqgg1"]
+animation = &"RESET"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1il3i"]
 animation = &"idle"
@@ -51,14 +54,36 @@ xfade_time = 0.25
 advance_mode = 2
 advance_condition = &"is_idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tg0qd"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"in_air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rnx2m"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"in_air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6e5xp"]
+xfade_time = 0.25
+advance_mode = 2
+advance_expression = "!in_air && speed == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ce3kr"]
+xfade_time = 0.25
+advance_mode = 2
+advance_expression = "!in_air && speed > 0"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_usfcw"]
 states/End/position = Vector2(699, 100)
+states/RESET/node = SubResource("AnimationNodeAnimation_sqgg1")
+states/RESET/position = Vector2(497, 100)
 states/Start/position = Vector2(175, 100)
 states/idle/node = SubResource("AnimationNodeAnimation_1il3i")
 states/idle/position = Vector2(343, 100)
 states/walk-run/node = SubResource("AnimationNodeBlendTree_2djn0")
 states/walk-run/position = Vector2(343, 221)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_gt1qj"), "idle", "walk-run", SubResource("AnimationNodeStateMachineTransition_l33t8"), "walk-run", "idle", SubResource("AnimationNodeStateMachineTransition_m6vpr")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_gt1qj"), "idle", "walk-run", SubResource("AnimationNodeStateMachineTransition_l33t8"), "walk-run", "idle", SubResource("AnimationNodeStateMachineTransition_m6vpr"), "idle", "RESET", SubResource("AnimationNodeStateMachineTransition_tg0qd"), "walk-run", "RESET", SubResource("AnimationNodeStateMachineTransition_rnx2m"), "RESET", "idle", SubResource("AnimationNodeStateMachineTransition_6e5xp"), "RESET", "walk-run", SubResource("AnimationNodeStateMachineTransition_ce3kr")]
 graph_offset = Vector2(-50, 70)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1jk6l"]
@@ -73,6 +98,7 @@ script/source = "extends AnimationTree
 
 
 var speed:float = 0.0
+var in_air:bool = false
 
 var _walk_length:float = 1.0
 var _run_length:float = 1.0
@@ -96,6 +122,7 @@ func _ready():
 func _process(delta):
 	set(\"parameters/Locomotion/conditions/is_moving\", speed > 0.0)
 	set(\"parameters/Locomotion/conditions/is_idle\", speed == 0.0)
+	set(\"parameters/Locomotion/conditions/in_air\", in_air)
 	set(\"parameters/Locomotion/walk-run/Speed/blend_amount\", (speed-_walk_speed)/(_run_speed - _walk_speed))
 
 	var min:float = max(0.0, speed - _walk_speed)
@@ -199,6 +226,7 @@ autoplay = "RESET"
 [node name="AnimationTree" type="AnimationTree" parent="." index="3"]
 tree_root = SubResource("AnimationNodeBlendTree_1jk6l")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Locomotion/conditions/in_air = false
 parameters/Locomotion/conditions/is_idle = false
 parameters/Locomotion/conditions/is_moving = false
 parameters/Locomotion/walk-run/RunScale/scale = 1.0

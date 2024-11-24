@@ -11,6 +11,14 @@ enum InputVectorSpace {
 ## The default walk speed in m/s.
 @export var max_speed:float = 6.0
 
+## The default jump force at the moment of lift-off in m/s.
+@export var jump_force:float = 4.0
+
+## The amount of drag applied to this character while moving through the air.
+## Measured in percentage of movement lost per second. NOTE: Does not affect
+## gravity.
+@export var air_drag:float = 0.02
+
 ## The gravity magnitude acting upon this character, measured in m/s^2.
 @export var gravity:float = 9.8
 
@@ -32,6 +40,9 @@ enum InputVectorSpace {
 
 ## The accumulated input vector for this character.
 var current_input_vector:Vector3 = Vector3.ZERO
+
+## The accumulated force at which this character launches when jumping.
+var current_jump_force:float = 0.0
 
 ## Collects all traces that need to be performed during physics processing.
 var trace_queue:Array
@@ -62,13 +73,19 @@ func _physics_process(delta):
 		if cam:
 			view_transform = cam.global_transform
 
-	view_transform.basis.z = (view_transform.basis.z * Vector3(1,0,1)).normalized()
-	var fwd:Vector3 = view_transform.basis.z * current_input_vector.z * max_speed
-	var rgt:Vector3 = view_transform.basis.x * current_input_vector.x * max_speed
+	var vec := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	current_input_vector = Vector3(vec.x, 0.0, vec.y)
 
-	current_vel = fwd + rgt
-	current_vel = current_vel.normalized() * max(2.5, current_vel.length())
-	current_vel.y = current_grav - gravity * delta
+	if is_on_floor():
+		view_transform.basis.z = (view_transform.basis.z * Vector3(1,0,1)).normalized()
+		var fwd:Vector3 = view_transform.basis.z * current_input_vector.z * max_speed
+		var rgt:Vector3 = view_transform.basis.x * current_input_vector.x * max_speed
+
+		current_vel = fwd + rgt
+		current_vel = current_vel.normalized() * max(2.5, current_vel.length())
+	else:
+		current_vel *= (1 - air_drag * delta)
+	current_vel.y = current_grav - gravity * delta + current_jump_force
 	set_velocity(current_vel)
 	move_and_slide()
 
@@ -84,6 +101,7 @@ func _physics_process(delta):
 
 	# Pass data to animation state machine
 	$AnimationTree.speed = velocity.length()
+	$AnimationTree.in_air = not is_on_floor()
 
 	# Process the trace queue
 	var space:PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
@@ -94,11 +112,15 @@ func _physics_process(delta):
 			if not result.is_empty() and result.collider.has_signal("touched"):
 				result.collider.emit_signal("touched", result.position)
 
+	# Reset all temporary force accumulations
+	current_jump_force = 0.0
+	current_input_vector = Vector3.ZERO
+
 
 ## Handles all the player input coming from connected input devices.
 func _unhandled_input(event):
-	var vec := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	current_input_vector = Vector3(vec.x, 0.0, vec.y)
+	if is_on_floor() and event.is_action_pressed("jump"):
+		current_jump_force = jump_force
 
 
 func on_anim_foot_down(bone:StringName):
