@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bpmi64v8v4i6w"]
 
 [ext_resource type="PackedScene" uid="uid://dhm4npydhgkba" path="res://addons/blocks_3d/characters/mannequin.glb" id="1_ulv4r"]
-[ext_resource type="Script" path="res://addons/blocks_3d/characters/mannequin.gd" id="2_waml3"]
+[ext_resource type="Script" uid="uid://c2175vq8xry8f" path="res://addons/blocks_3d/characters/mannequin.gd" id="2_waml3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4a8ri"]
 radius = 0.4

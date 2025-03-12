@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b15xpaurii7wa"]
 
-[ext_resource type="Script" path="res://addons/blocks_3d/characters/camera.gd" id="1_8b2i0"]
+[ext_resource type="Script" uid="uid://beexlo3tf20ot" path="res://addons/blocks_3d/characters/camera.gd" id="1_8b2i0"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_la3xt"]
 auto_exposure_enabled = true

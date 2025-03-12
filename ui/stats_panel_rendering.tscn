@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvkhu5u815tfq"]
 
 [ext_resource type="Theme" uid="uid://bnpkkfvi8iovn" path="res://addons/blocks_3d/ui/stats_theme.tres" id="1_h35hm"]
-[ext_resource type="Script" path="res://addons/blocks_3d/ui/stats_panel_rendering.gd" id="1_mm3k2"]
+[ext_resource type="Script" uid="uid://bihxmbsto05wq" path="res://addons/blocks_3d/ui/stats_panel_rendering.gd" id="1_mm3k2"]
 
 [node name="StatsPanelRendering" type="Control"]
 layout_mode = 3
