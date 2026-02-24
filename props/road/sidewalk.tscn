@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://be140nt8d1p3s"]
+[gd_scene format=3 uid="uid://be140nt8d1p3s"]
 
 [ext_resource type="Material" uid="uid://bhn0ttfn5tfre" path="res://addons/blocks_3d/materials/grid_grey.tres" id="1_itnq0"]
 
@@ -37,11 +37,11 @@ func _get_width() -> float:
 	return width
 "
 
-[node name="BlockSidewalk" type="Path3D"]
+[node name="BlockSidewalk" type="Path3D" unique_id=1662510556]
 curve = SubResource("Curve3D_ibwkc")
 script = SubResource("GDScript_fpeom")
 
-[node name="Polygon" type="CSGPolygon3D" parent="."]
+[node name="Polygon" type="CSGPolygon3D" parent="." unique_id=1895992328]
 use_collision = true
 polygon = PackedVector2Array(-2, 0, -2, 0.1, -0.1, 0.1, -0.09, 0.09, -0.08, 0.1, 0, 0.1, 0, 0)
 mode = 2
@@ -50,6 +50,7 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = true
 path_continuous_u = true
 path_u_distance = 1.0

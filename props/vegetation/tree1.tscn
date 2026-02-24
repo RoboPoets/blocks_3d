@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://tetw2xuq75ch"]
+[gd_scene format=3 uid="uid://tetw2xuq75ch"]
 
 [ext_resource type="Material" uid="uid://cntuw0d42ylyc" path="res://addons/blocks_3d/materials/grid_green.tres" id="1_2c0w5"]
 
@@ -50,17 +50,17 @@ func _get_crown_radius() -> float:
 	return $Crown.radius
 "
 
-[node name="BlockTree" type="CSGCombiner3D"]
+[node name="BlockTree" type="CSGCombiner3D" unique_id=858140280]
 material_override = ExtResource("1_2c0w5")
 use_collision = true
 script = SubResource("GDScript_cbwo2")
 
-[node name="Trunk" type="CSGCylinder3D" parent="."]
+[node name="Trunk" type="CSGCylinder3D" parent="." unique_id=526744279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 height = 3.5
 sides = 12
 
-[node name="Crown" type="CSGSphere3D" parent="."]
+[node name="Crown" type="CSGSphere3D" parent="." unique_id=1863852351]
 transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 3.5, 0)
 radius = 2.0
 radial_segments = 16

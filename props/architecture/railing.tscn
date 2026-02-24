@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdstppqs6w3ke"]
+[gd_scene format=3 uid="uid://cdstppqs6w3ke"]
 
 [ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_dg204"]
 
@@ -13,22 +13,22 @@ extends CSGCombiner3D
 		$Screen.size.x = value
 "
 
-[node name="BlockRailing" type="CSGCombiner3D"]
+[node name="BlockRailing" type="CSGCombiner3D" unique_id=1493865826]
 material_override = ExtResource("1_dg204")
 use_collision = true
 script = SubResource("GDScript_ucveq")
 
-[node name="Pole" type="CSGCylinder3D" parent="."]
+[node name="Pole" type="CSGCylinder3D" parent="." unique_id=445680139]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 radius = 0.04
 height = 1.0
 sides = 12
 
-[node name="Handle" type="CSGCylinder3D" parent="."]
+[node name="Handle" type="CSGCylinder3D" parent="." unique_id=1860567892]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1, 0)
 radius = 0.05
 sides = 12
 
-[node name="Screen" type="CSGBox3D" parent="."]
+[node name="Screen" type="CSGBox3D" parent="." unique_id=577512669]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(2, 0.8, 0.02)

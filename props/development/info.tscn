@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8eix3fvuwe6v"]
+[gd_scene format=3 uid="uid://b8eix3fvuwe6v"]
 
 [sub_resource type="GDScript" id="GDScript_fysi7"]
 script/source = "@tool
@@ -54,23 +54,23 @@ rings = 1
 cap_top = false
 cap_bottom = false
 
-[node name="Info" type="StaticBody3D"]
+[node name="Info" type="StaticBody3D" unique_id=849592552]
 collision_layer = 0
 collision_mask = 0
 script = SubResource("GDScript_fysi7")
 text = "Read me"
 
-[node name="Collision" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1596935495]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 shape = SubResource("CylinderShape3D_fpry8")
 
-[node name="Pillar" type="MeshInstance3D" parent="."]
+[node name="Pillar" type="MeshInstance3D" parent="." unique_id=766420289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("ShaderMaterial_71uqg")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_k76rs")
 
-[node name="Text" type="Label3D" parent="."]
+[node name="Text" type="Label3D" parent="." unique_id=198548943]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 pixel_size = 0.001
 outline_modulate = Color(0, 0, 0, 0.52549)

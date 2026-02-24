@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cw761gphgh082"]
+[gd_scene format=3 uid="uid://cw761gphgh082"]
 
 [ext_resource type="Material" uid="uid://bhn0ttfn5tfre" path="res://addons/blocks_3d/materials/grid_grey.tres" id="1_srqhg"]
 
@@ -80,18 +80,18 @@ func _rebuild_collision():
 	$StaticBody3D/Collision.set_polygon(points)
 "
 
-[node name="BlockStair" type="CSGCombiner3D"]
+[node name="BlockStair" type="CSGCombiner3D" unique_id=1821780052]
 material_override = ExtResource("1_srqhg")
 script = SubResource("GDScript_lx3jb")
 
-[node name="Polygon" type="CSGPolygon3D" parent="."]
+[node name="Polygon" type="CSGPolygon3D" parent="." unique_id=1919364530]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 polygon = PackedVector2Array(2, 1, 2, 0.8, 0, -0.2, 0, 0.2, 0.4, 0.2, 0.4, 0.4, 0.8, 0.4, 0.8, 0.6, 1.2, 0.6, 1.2, 0.8, 1.6, 0.8, 1.6, 1, 2, 1)
 depth = 2.0
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=754113755]
 
-[node name="Collision" type="CollisionPolygon3D" parent="StaticBody3D"]
+[node name="Collision" type="CollisionPolygon3D" parent="StaticBody3D" unique_id=1431405116]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 2)
 depth = 2.0
 polygon = PackedVector2Array(2, 0, 2, -0.2, 0, 0.8, 0, 1, 0.4, 1, 0.6, 0.8, 0.8, 0.8, 1, 0.6, 1.2, 0.6, 1.4, 0.4, 1.6, 0.4, 1.8, 0.2, 2, 0.2, 2.2, 0)

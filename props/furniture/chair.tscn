@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://u5ne2aw2ba0q"]
+[gd_scene format=3 uid="uid://u5ne2aw2ba0q"]
 
 [ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_5aqgl"]
 
@@ -45,31 +45,31 @@ func _get_height() -> float:
 	return $Back.get_position().y + $Back.size.y * 0.5
 "
 
-[node name="BlockChair" type="CSGCombiner3D"]
+[node name="BlockChair" type="CSGCombiner3D" unique_id=968620489]
 material_override = ExtResource("1_5aqgl")
 use_collision = true
 script = SubResource("GDScript_bn4ug")
 
-[node name="Seat" type="CSGBox3D" parent="."]
+[node name="Seat" type="CSGBox3D" parent="." unique_id=1639731277]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(0.5, 0.03, 0.5)
 
-[node name="Back" type="CSGBox3D" parent="."]
+[node name="Back" type="CSGBox3D" parent="." unique_id=1064918825]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0.23)
 size = Vector3(0.5, 0.25, 0.04)
 
-[node name="Leg1" type="CSGBox3D" parent="."]
+[node name="Leg1" type="CSGBox3D" parent="." unique_id=1278613341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.25, -0.23)
 size = Vector3(0.04, 0.5, 0.04)
 
-[node name="Leg2" type="CSGBox3D" parent="."]
+[node name="Leg2" type="CSGBox3D" parent="." unique_id=317116955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.25, -0.23)
 size = Vector3(0.04, 0.5, 0.04)
 
-[node name="Leg3" type="CSGBox3D" parent="."]
+[node name="Leg3" type="CSGBox3D" parent="." unique_id=1298214285]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.5, 0.23)
 size = Vector3(0.04, 1, 0.04)
 
-[node name="Leg4" type="CSGBox3D" parent="."]
+[node name="Leg4" type="CSGBox3D" parent="." unique_id=1177180342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.5, 0.23)
 size = Vector3(0.04, 1, 0.04)

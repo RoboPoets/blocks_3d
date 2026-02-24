@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dc3d82eypbkni"]
+[gd_scene format=3 uid="uid://dc3d82eypbkni"]
 
 [ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_vd1l1"]
 
@@ -107,37 +107,37 @@ func _get_has_right_post() -> bool:
 	return has_right_post
 "
 
-[node name="BlockFence" type="CSGCombiner3D"]
+[node name="BlockFence" type="CSGCombiner3D" unique_id=923340709]
 material_override = ExtResource("1_vd1l1")
 use_collision = true
 script = SubResource("GDScript_m25k1")
 
-[node name="Top" type="CSGBox3D" parent="."]
+[node name="Top" type="CSGBox3D" parent="." unique_id=1250622565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 size = Vector3(2, 0.1, 0.02)
 
-[node name="Bottom" type="CSGBox3D" parent="."]
+[node name="Bottom" type="CSGBox3D" parent="." unique_id=2024917149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 size = Vector3(2, 0.1, 0.02)
 
-[node name="Pickets" type="CSGCombiner3D" parent="."]
+[node name="Pickets" type="CSGCombiner3D" parent="." unique_id=916164433]
 
-[node name="@@18756" type="CSGBox3D" parent="Pickets"]
+[node name="@@18756" type="CSGBox3D" parent="Pickets" unique_id=581845716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.5, -0.025)
 size = Vector3(0.1, 1, 0.02)
 
-[node name="@@18757" type="CSGBox3D" parent="Pickets"]
+[node name="@@18757" type="CSGBox3D" parent="Pickets" unique_id=1046131914]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, -0.025)
 size = Vector3(0.1, 1, 0.02)
 
-[node name="@@18758" type="CSGBox3D" parent="Pickets"]
+[node name="@@18758" type="CSGBox3D" parent="Pickets" unique_id=1421044999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.025)
 size = Vector3(0.1, 1, 0.02)
 
-[node name="@@18759" type="CSGBox3D" parent="Pickets"]
+[node name="@@18759" type="CSGBox3D" parent="Pickets" unique_id=1081654388]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, -0.025)
 size = Vector3(0.1, 1, 0.02)
 
-[node name="@@18760" type="CSGBox3D" parent="Pickets"]
+[node name="@@18760" type="CSGBox3D" parent="Pickets" unique_id=165269078]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.5, -0.025)
 size = Vector3(0.1, 1, 0.02)

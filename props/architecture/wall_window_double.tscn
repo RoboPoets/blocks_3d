@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://toheirqifj0q"]
+[gd_scene format=3 uid="uid://toheirqifj0q"]
 
 [ext_resource type="Material" uid="uid://dfoid1m0oelnv" path="res://addons/blocks_3d/materials/grid_sand.tres" id="1_17i5x"]
 
@@ -31,21 +31,21 @@ func _get_window_size() ->Vector2:
 	return Vector2($window.size.x, $window.size.y)
 "
 
-[node name="BlockWallWindowDouble" type="CSGCombiner3D"]
+[node name="BlockWallWindowDouble" type="CSGCombiner3D" unique_id=755620458]
 material_override = ExtResource("1_17i5x")
 use_collision = true
 script = SubResource("GDScript_bg470")
 
-[node name="wall" type="CSGBox3D" parent="."]
+[node name="wall" type="CSGBox3D" parent="." unique_id=736542594]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 size = Vector3(4, 3, 0.2)
 
-[node name="window" type="CSGBox3D" parent="."]
+[node name="window" type="CSGBox3D" parent="." unique_id=54449348]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 1.2, 0)
 operation = 2
 size = Vector3(1.8, 2.2, 0.3)
 
-[node name="window2" type="CSGBox3D" parent="."]
+[node name="window2" type="CSGBox3D" parent="." unique_id=726797989]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 1.2, 0)
 operation = 2
 size = Vector3(1.8, 2.2, 0.3)

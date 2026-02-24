@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwhe1x2nmn7pw"]
+[gd_scene format=3 uid="uid://cwhe1x2nmn7pw"]
 
 [ext_resource type="Material" uid="uid://bhn0ttfn5tfre" path="res://addons/blocks_3d/materials/grid_grey.tres" id="1_ktv75"]
 
@@ -13,12 +13,12 @@ signal touched(pos:Vector3)
 	get: return $floor.size
 "
 
-[node name="BlockFloor" type="CSGCombiner3D"]
+[node name="BlockFloor" type="CSGCombiner3D" unique_id=1552013651]
 material_override = ExtResource("1_ktv75")
 use_collision = true
 script = SubResource("GDScript_ig307")
 
-[node name="floor" type="CSGBox3D" parent="."]
+[node name="floor" type="CSGBox3D" parent="." unique_id=1415674329]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
 size = Vector3(4, 0.2, 4)

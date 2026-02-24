@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b15xpaurii7wa"]
+[gd_scene format=3 uid="uid://b15xpaurii7wa"]
 
 [ext_resource type="Script" uid="uid://beexlo3tf20ot" path="res://addons/blocks_3d/characters/camera.gd" id="1_8b2i0"]
 
@@ -12,22 +12,22 @@ auto_exposure_min_exposure_value = -4.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_pda7g"]
 radius = 0.25
 
-[node name="Camera" type="Node3D"]
+[node name="Camera" type="Node3D" unique_id=760076254]
 script = ExtResource("1_8b2i0")
 limit_pitch_range = true
 
-[node name="CameraBoom" type="SpringArm3D" parent="."]
+[node name="CameraBoom" type="SpringArm3D" parent="." unique_id=2049747560]
 spring_length = 2.5
 margin = 0.05
 
-[node name="Camera" type="Camera3D" parent="CameraBoom"]
+[node name="Camera" type="Camera3D" parent="CameraBoom" unique_id=195759909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
 attributes = SubResource("CameraAttributesPhysical_la3xt")
 
-[node name="Collider" type="Area3D" parent="CameraBoom/Camera"]
+[node name="Collider" type="Area3D" parent="CameraBoom/Camera" unique_id=673269379]
 collision_layer = 2147483648
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape3D" parent="CameraBoom/Camera/Collider"]
+[node name="Shape" type="CollisionShape3D" parent="CameraBoom/Camera/Collider" unique_id=1263891730]
 shape = SubResource("SphereShape3D_pda7g")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bws5yk7higmsu"]
+[gd_scene format=3 uid="uid://bws5yk7higmsu"]
 
 [ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_em7xt"]
 
@@ -29,40 +29,40 @@ func _get_size() -> Vector3:
 	return Vector3($Top.size.x, $Top.get_position().y, $Top.size.z)
 "
 
-[node name="BlockTable" type="CSGCombiner3D"]
+[node name="BlockTable" type="CSGCombiner3D" unique_id=1813103358]
 material_override = ExtResource("1_em7xt")
 use_collision = true
 script = SubResource("GDScript_s2hih")
 
-[node name="Top" type="CSGBox3D" parent="."]
+[node name="Top" type="CSGBox3D" parent="." unique_id=181384139]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 size = Vector3(1.8, 0.03, 1.2)
 
-[node name="Support" type="CSGBox3D" parent="Top"]
+[node name="Support" type="CSGBox3D" parent="Top" unique_id=1800195638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
 size = Vector3(1.7, 0.03, 1.1)
 
-[node name="Cutout" type="CSGBox3D" parent="Top"]
+[node name="Cutout" type="CSGBox3D" parent="Top" unique_id=1388327494]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
 operation = 2
 size = Vector3(1.65, 0.04, 1.05)
 
-[node name="Leg1" type="CSGCylinder3D" parent="."]
+[node name="Leg1" type="CSGCylinder3D" parent="." unique_id=846884615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, 0.55)
 radius = 0.02
 height = 0.8
 
-[node name="Leg2" type="CSGCylinder3D" parent="."]
+[node name="Leg2" type="CSGCylinder3D" parent="." unique_id=1039405926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, 0.55)
 radius = 0.02
 height = 0.8
 
-[node name="Leg3" type="CSGCylinder3D" parent="."]
+[node name="Leg3" type="CSGCylinder3D" parent="." unique_id=1464694738]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.4, -0.55)
 radius = 0.02
 height = 0.8
 
-[node name="Leg4" type="CSGCylinder3D" parent="."]
+[node name="Leg4" type="CSGCylinder3D" parent="." unique_id=251677702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.4, -0.55)
 radius = 0.02
 height = 0.8

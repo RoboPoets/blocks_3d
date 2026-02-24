@@ -1,4 +1,4 @@
-[gd_resource type="Animation" load_steps=0 format=3 uid="uid://boxghp3ch7s2b"]
+[gd_resource type="Animation" format=3 uid="uid://boxghp3ch7s2b"]
 
 [resource]
 resource_name = "walk"

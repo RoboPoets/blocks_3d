@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dsm1ww065yvlj"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dsm1ww065yvlj"]
 
 [ext_resource type="Texture2D" uid="uid://bfwuxwk3mltvw" path="res://addons/blocks_3d/textures/mannequin_worn_d.webp" id="1_j5heb"]
-[ext_resource type="Shader" path="res://addons/blocks_3d/shaders/mannequin.gdshader" id="1_yaekv"]
+[ext_resource type="Shader" uid="uid://b0jue0gj1764u" path="res://addons/blocks_3d/shaders/mannequin.gdshader" id="1_yaekv"]
 [ext_resource type="Texture2D" uid="uid://ge06ncc85mpr" path="res://addons/blocks_3d/textures/mannequin_worn_n.webp" id="2_7aqjp"]
 [ext_resource type="Texture2D" uid="uid://bqkpvynekflxx" path="res://addons/blocks_3d/textures/mannequin_worn_orm.webp" id="3_swmaj"]
 

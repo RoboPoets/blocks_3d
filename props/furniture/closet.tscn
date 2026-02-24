@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqlecjtrepbbb"]
+[gd_scene format=3 uid="uid://cqlecjtrepbbb"]
 
 [ext_resource type="Material" uid="uid://cbvkhd7fsyksp" path="res://addons/blocks_3d/materials/grid_blue.tres" id="1_tgsvm"]
 
@@ -69,21 +69,21 @@ func _get_num_shelves() -> int:
 	return num_shelves
 "
 
-[node name="BlockCloset" type="CSGCombiner3D"]
+[node name="BlockCloset" type="CSGCombiner3D" unique_id=768345893]
 material_override = ExtResource("1_tgsvm")
 use_collision = true
 script = SubResource("GDScript_3hxed")
 
-[node name="Body" type="CSGBox3D" parent="."]
+[node name="Body" type="CSGBox3D" parent="." unique_id=1534549073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 size = Vector3(1, 2, 0.5)
 
-[node name="Left" type="CSGBox3D" parent="."]
+[node name="Left" type="CSGBox3D" parent="." unique_id=882546773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1, -0.02)
 size = Vector3(0.45, 1.95, 0.5)
 
-[node name="Right" type="CSGBox3D" parent="."]
+[node name="Right" type="CSGBox3D" parent="." unique_id=103142596]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -0.02)
 size = Vector3(0.45, 1.95, 0.5)
 
-[node name="Shelves" type="CSGCombiner3D" parent="."]
+[node name="Shelves" type="CSGCombiner3D" parent="." unique_id=1290455453]
