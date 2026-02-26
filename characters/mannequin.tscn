@@ -141,13 +141,10 @@ script = ExtResource("2_waml3")
 [node name="Capsule" type="CollisionShape3D" parent="." index="0" unique_id=1567767859]
 shape = SubResource("CapsuleShape3D_4a8ri")
 
-[node name="Skeleton" parent="." index="1" unique_id=1287747400]
+[node name="Skeleton" parent="." index="1" unique_id=1828073056]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.9, 0)
 
-[node name="Robot" parent="Skeleton/Skeleton3D" parent_id_path=PackedInt32Array(491438633) index="0" unique_id=605626637]
-layers = 1048575
-
-[node name="AnimationPlayer" parent="." index="2" unique_id=1433196364]
+[node name="AnimationPlayer" parent="." index="2" unique_id=1608547070]
 autoplay = &"RESET"
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=1810849209]
