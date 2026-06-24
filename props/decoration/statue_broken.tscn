@@ -5,5 +5,5 @@
 
 [node name="BlockDecoStatueBroken" unique_id=1739362453 instance=ExtResource("1_6evty")]
 
-[node name="statue broken" parent="." index="0" unique_id=928302938]
+[node name="statue broken" parent="." index="0" unique_id=510062912]
 surface_material_override/0 = ExtResource("2_yqm02")

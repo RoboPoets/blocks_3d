@@ -16,6 +16,8 @@ dest_files=["res://.godot/imported/mannequin.glb-3c1a641f1985c2330a3ef0d76b0e0f0
 nodes/root_type="CharacterBody3D"
 nodes/root_name="Scene Root"
 nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -8279,3 +8281,4 @@ _subresources={
 }
 gltf/naming_version=1
 gltf/embedded_image_handling=0
+gltf/texture_map_mode=0
