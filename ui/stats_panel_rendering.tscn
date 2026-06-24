@@ -81,16 +81,22 @@ theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
 text = "Reflection Probes (F2):"
 horizontal_alignment = 2
 
-[node name="LabelGI" type="Label" parent="Features/Labels" unique_id=2057267134]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
-text = "Dynamic GI (F3):"
-horizontal_alignment = 2
-
 [node name="LabelOcc" type="Label" parent="Features/Labels" unique_id=1119184273]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
-text = "Occlusion Culling (F4):"
+text = "Occlusion Culling (F3):"
+horizontal_alignment = 2
+
+[node name="LabelGI" type="Label" parent="Features/Labels" unique_id=2057267134]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "SDFGI (F4):"
+horizontal_alignment = 2
+
+[node name="LabelGI2" type="Label" parent="Features/Labels" unique_id=1283796840]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.917647, 0.45098, 1)
+text = "VoxelGI (F5):"
 horizontal_alignment = 2
 
 [node name="Values" type="VBoxContainer" parent="Features" unique_id=2068854382]
@@ -103,13 +109,19 @@ layout_mode = 2
 text = "off"
 horizontal_alignment = 2
 
+[node name="Occlusion" type="Label" parent="Features/Values" unique_id=1055342400]
+unique_name_in_owner = true
+layout_mode = 2
+text = "off"
+horizontal_alignment = 2
+
 [node name="GI" type="Label" parent="Features/Values" unique_id=603936204]
 unique_name_in_owner = true
 layout_mode = 2
 text = "off"
 horizontal_alignment = 2
 
-[node name="Occlusion" type="Label" parent="Features/Values" unique_id=1055342400]
+[node name="GI2" type="Label" parent="Features/Values" unique_id=1360666793]
 unique_name_in_owner = true
 layout_mode = 2
 text = "off"
